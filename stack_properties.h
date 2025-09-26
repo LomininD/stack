@@ -5,6 +5,9 @@
 #include <stdio.h>
 
 
+typedef int st_data_type; // you can change stack type here
+
+
 const int canary_value = 911;
 const int poisoned_data = 666;
 
@@ -12,8 +15,10 @@ const int poisoned_data = 666;
 enum st_error
 {
     any_error = -1,
-    no_error = 0,
-    canary_fault = 1
+    no_error,
+    no_data,
+    stack_overflow,
+    canary_fault
 
 };
 
