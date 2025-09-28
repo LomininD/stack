@@ -8,8 +8,9 @@
 typedef int st_data_type; // you can change stack type here
 
 
-const int canary_value = 911;
-const int poisoned_data = 666;
+const int canary_value = 911; // make hex
+const int poisoned_data = 6436;
+const size_t st_output_size = 3;
 
 
 enum st_error
@@ -26,7 +27,7 @@ enum st_error
 struct st_t
 {
     st_data_type* data;
-    int size;
+    size_t size;
     size_t capacity;
     st_error error;
 };

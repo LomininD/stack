@@ -18,6 +18,10 @@ enum verifier_output
 
 void st_dump(st_t* st);
 verifier_output st_verify(st_t* st);
+void print_st_data(st_t* st);
+void print_st_info(st_t* st);
+size_t max(size_t a, size_t b);
+size_t min(size_t a, size_t b);
 
 
 #endif
