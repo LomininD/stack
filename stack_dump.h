@@ -1,13 +1,14 @@
 #ifndef STACK_DUMP_H
 #define STACK_DUMP_H
 
-
 #include <stdio.h>
 #include <assert.h>
 
 #include "font_styles.h"
+#include "min_max.h"
 #include "stack_properties.h"
 
+#define CHECK_STACK(ST) if (!st_verify(st)) return any_error
 
 enum verifier_output
 {
@@ -15,13 +16,10 @@ enum verifier_output
     verified = 1
 };
 
-
 void st_dump(st_t* st);
 verifier_output st_verify(st_t* st);
 void print_st_data(st_t* st);
 void print_st_info(st_t* st);
-size_t max(size_t a, size_t b);
-size_t min(size_t a, size_t b);
-
+void print_st_values(st_t* st);
 
 #endif

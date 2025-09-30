@@ -5,7 +5,7 @@
 #define BOLD "\033[1m"
 #define BOLD_RED "\033[1;31m"
 #define BOLD_GREEN "\033[1;32m"
-#define BRIGHT_GREY "\033[2;90m"
+#define BRIGHT_GREY "\033[2m"
 #define RESET_FONT "\033[0m"
 
 #define MAKE_BOLD(ARG) BOLD ARG RESET_FONT

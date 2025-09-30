@@ -1,0 +1,21 @@
+// TODO: improve pop
+// TODO: realloc
+// TODO: switch and add function
+// TODO: print canaries
+// TODO: print_el
+// TODO: check float types
+// TODO: ask about poisoned data
+// TODO: st_history mode
+// TODO: file logs
+// TODO: multiple error output
+// TODO: remove assert with warning message
+// TODO: add more check to st_verify
+// TODO: add hash protection
+// TODO: add ability to disable protections
+
+// TODO: (done) refactored function of partial stack_data output
+// TODO: (done) added return error enum for stack functions
+// TODO: (done) added verify macros
+// TODO: (done) print part of stack
+
+

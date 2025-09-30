@@ -46,38 +46,26 @@ verifier_output st_verify(st_t* st)
 }
 
 
-// dump checks if any errors were registered and sends log
+// st_dump checks if any errors were registered and sends log
 void st_dump(st_t* st)
 {
     printf("-----------------------------------------------------------\n");
 
     if (st == NULL)
-    {
         printf(MAKE_BOLD_RED("ERROR:") " stack not found (got NULL pointer)\n");
-    }
     else
     {
         if (st->error == no_data)
-        {
             printf(MAKE_BOLD_RED("ERROR:") " stack data not found (got NULL pointer)\n\n");
-        }
+
         if (st->error == canary_fault)
-        {
             printf(MAKE_BOLD_RED("UNAUTHORIZED ACCESS TO DATA:") " canary protection triggered\n\n");
-            // TODO: print part of stack
-            // TODO: switch and add function
-            // TODO: print canaries
             // if canary protection triggered should we print data in dump?
-        }
+
         if (st->error == stack_overflow)
-        {
             printf(MAKE_BOLD_RED("ERROR:") " stack overflow\n\n");
-        }
 
         print_st_info(st);
-        print_st_data(st);
-
-        printf("}\n");
     }
 
     printf("-----------------------------------------------------------\n");
@@ -98,6 +86,10 @@ void print_st_info(st_t* st)
     {
         printf(MAKE_BOLD("stack") "  [not found]\n");
     }
+
+    print_st_data(st);
+
+    printf("}\n");
 }
 
 
@@ -110,29 +102,19 @@ void print_st_data(st_t* st)
             printf("\tdata  [%p]\n", st->data);
             printf("\t{\n");
 
-            printf(MAKE_GREY("\t\t [0] = %d (canary protection)\n"), st->data[0]);
+            printf(MAKE_GREY("\t\t [0] = %x (canary protection)\n"), st->data[0]);
 
             if (st->error != stack_overflow)
             {
-                for (int i = 0; i < st->size; i++)
-                {
-                    printf("\t\t*[%d] = %d\n", i + 1, st->data[i+1]); // TODO: print_el
-                }
-
-                for (int i = st->size; i < st->capacity; i++)
-                {
-                    printf("\t\t [%d] = [empty]\n", i + 1); // TODO: print_el
-                }
+                print_st_values(st);
             }
             else
             {
-                for (int i = 0; i < st->capacity; i++)
-                {
-                    printf("\t\t?[%d] = %d\n", i + 1, st->data[i+1]); // TODO: print_el
-                }
+                printf("\t\t [overflowed]\n");
             }
 
-            printf(MAKE_GREY("\t\t [%zu] = %d (canary protection)\n"), st->capacity + 1, st->data[st->capacity+1]);
+            printf(MAKE_GREY("\t\t [%zu] = %x (canary protection)\n"),
+                                st->capacity + 1, st->data[st->capacity+1]);
 
             printf("\t}\n");
         }
@@ -142,17 +124,33 @@ void print_st_data(st_t* st)
         }
 }
 
-
-size_t max(size_t a, size_t b)
+void print_st_values(st_t* st)
 {
-    if (a > b)
-        return a;
-    return b;
-}
+    assert(st != NULL);
 
-size_t min(size_t a, size_t b)
-{
-    if (a < b)
-        return a;
-    return b;
+    for (size_t i = 0; i < st_output_size / 2; i++)
+    {
+        if (i < st->size)
+            printf("\t\t*[%zu] = %d\n", i + 1, st->data[i+1]);
+        else
+            printf("\t\t [%zu] = [empty]\n", i + 1);
+
+        // all solves print_el
+    }
+
+    if (st_output_size < st->capacity)
+    {
+        printf("\t\t ...\n");
+        //printf("%d", st->capacity);
+    }
+
+    for (size_t i = (st->capacity - st_output_size / 2); i < st->capacity; i++)
+    {
+        if (i < st->size)
+            printf("\t\t*[%zu] = [empty]\n", i + 1);
+        else
+            printf("\t\t [%zu] = [empty]\n", i + 1);
+
+        // all duplicating solves print_el
+    }
 }
