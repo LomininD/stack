@@ -6,7 +6,7 @@
 typedef int st_data_type; // you can change stack type here
 
 const int canary_value = 0xcadef; // cadef - CAnary DEFense
-const size_t st_output_size = 6;
+const size_t st_output_size = 20;
 //const int poisoned_data = 0xbadf00d;
 
 enum st_verifier_error
@@ -29,7 +29,9 @@ enum st_return_err
 
 struct st_t
 {
+
     st_data_type* data;
+    // add canary
     size_t size;
     size_t capacity;
     st_verifier_error error;

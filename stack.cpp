@@ -28,8 +28,7 @@ st_return_err st_ctor (st_t* st, size_t capacity)
 st_return_err st_push (st_t* st, st_data_type value)
 {
     CHECK_STACK(st);
-
-    PUSH_ASSERT_SIZE(st);
+    PUSH_ASSERT_REALLOC(st);
 
     st->data[st->size + 1] = value;
     st->size++;
@@ -59,6 +58,24 @@ st_return_err st_dtor (st_t* st)
     CHECK_STACK(st);
 
     free(st->data);
+
+    return no_error;
+}
+
+
+st_return_err st_extend(st_t* st)
+{
+    CHECK_STACK(st);
+
+    st->capacity = st->capacity * 2;
+    st_data_type* new_data = (st_data_type*) realloc(st->data, (st->capacity + 2) * sizeof(st_data_type));
+    st->data = new_data;
+
+    ST_EXTEND_ASSERT_DATA(st->data);
+
+    st->data[st->capacity + 1] = canary_value;
+
+    CHECK_STACK(st);
 
     return no_error;
 }

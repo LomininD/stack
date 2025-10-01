@@ -52,19 +52,21 @@ void st_dump(st_t* st)
     printf("-----------------------------------------------------------\n");
 
     if (st == NULL)
-        printf("verifier: " MAKE_BOLD_RED("ERROR:") " stack not found (got NULL pointer)\n");
+        printf(MAKE_BOLD_RED("ERROR: ") "[from verifier] -> " \
+                                    " stack not found (got NULL pointer)\n");
     else
     {
-        //USE SWITCH HERE
         if (st->error == no_data)
-            printf("verifier: " MAKE_BOLD_RED("ERROR:") " stack data not found (got NULL pointer)\n\n");
+            printf(MAKE_BOLD_RED("ERROR: ") "[from verifier] -> "  \
+                                "stack data not found (got NULL pointer)\n\n");
 
         if (st->error == canary_fault)
-            printf("verifier: " MAKE_BOLD_RED("UNAUTHORIZED ACCESS TO DATA:") " canary protection triggered\n\n");
+            printf(MAKE_BOLD_RED("UNAUTHORIZED ACCESS TO DATA: ") \
+                            "[from verifier] -> canary protection triggered\n\n");
             // if canary protection triggered should we print data in dump?
 
         if (st->error == stack_overflow)
-            printf("verifier: " MAKE_BOLD_RED("ERROR:") " stack overflow\n\n");
+            printf(MAKE_BOLD_RED("ERROR: ") "[from verifier] -> stack overflow\n\n");
 
         print_st_info(st);
     }
@@ -72,9 +74,8 @@ void st_dump(st_t* st)
     printf("-----------------------------------------------------------\n");
 }
 
-// check(error) - gets binary error var and checks if requested error has occurred using switch
-
-
+// check(error) - gets binary error var and checks if requested
+// error has occurred using switch
 void print_st_info(st_t* st)
 {
 
@@ -137,23 +138,19 @@ void print_st_values(st_t* st)
             printf("\t\t*[%zu] = %d\n", i + 1, st->data[i+1]);
         else
             printf("\t\t [%zu] = [empty]\n", i + 1);
-
-        // all solves print_el
     }
 
     if (st_output_size < st->capacity)
     {
         printf("\t\t ...\n");
-        //printf("%d", st->capacity);
     }
 
-    for (size_t i = max(st_output_size / 2, st->capacity - st_output_size / 2); i < st->capacity; i++)
+    for (size_t i = max(st_output_size / 2, st->capacity - st_output_size / 2); \
+                                                        i < st->capacity; i++)
     {
         if (i < st->size)
             printf("\t\t*[%zu] = %d\n", i + 1, st->data[i+1]);
         else
             printf("\t\t [%zu] = [empty]\n", i + 1);
-
-        // all duplicating solves print_el
     }
 }
