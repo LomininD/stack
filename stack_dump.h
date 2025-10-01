@@ -8,8 +8,6 @@
 #include "min_max.h"
 #include "stack_properties.h"
 
-#define CHECK_STACK(ST) if (!st_verify(st)) return verification_error
-
 enum verifier_output
 {
     not_verified = 0,

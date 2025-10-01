@@ -28,4 +28,26 @@
     } while(0)
 
 
+#define PUSH_ASSERT_SIZE(ST) do{ \
+    if (ST->size == ST->capacity) \
+        { \
+            printf("st_push: " MAKE_BOLD_RED("ERROR:") " push failed, stack full\n"); \
+            st_dump(ST); \
+            return stack_full; \
+        } \
+    } while(0)
+
+
+#define POP_ASSERT_ELEMENTS(ST) do{ \
+    if (ST->size == 0) \
+        { \
+            printf("st_pop: " MAKE_BOLD_RED("ERROR:") " pop failed, no elements in stack\n"); \
+            st_dump(ST); \
+            return no_elements; \
+        } \
+    } while(0)
+
+
+#define CHECK_STACK(ST) if (!st_verify(st)) return verification_error
+
 #endif

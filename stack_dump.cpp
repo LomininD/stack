@@ -52,19 +52,19 @@ void st_dump(st_t* st)
     printf("-----------------------------------------------------------\n");
 
     if (st == NULL)
-        printf(MAKE_BOLD_RED("ERROR:") " stack not found (got NULL pointer)\n");
+        printf("verifier: " MAKE_BOLD_RED("ERROR:") " stack not found (got NULL pointer)\n");
     else
     {
         //USE SWITCH HERE
         if (st->error == no_data)
-            printf(MAKE_BOLD_RED("ERROR:") " stack data not found (got NULL pointer)\n\n");
+            printf("verifier: " MAKE_BOLD_RED("ERROR:") " stack data not found (got NULL pointer)\n\n");
 
         if (st->error == canary_fault)
-            printf(MAKE_BOLD_RED("UNAUTHORIZED ACCESS TO DATA:") " canary protection triggered\n\n");
+            printf("verifier: " MAKE_BOLD_RED("UNAUTHORIZED ACCESS TO DATA:") " canary protection triggered\n\n");
             // if canary protection triggered should we print data in dump?
 
         if (st->error == stack_overflow)
-            printf(MAKE_BOLD_RED("ERROR:") " stack overflow\n\n");
+            printf("verifier: " MAKE_BOLD_RED("ERROR:") " stack overflow\n\n");
 
         print_st_info(st);
     }
@@ -131,7 +131,7 @@ void print_st_values(st_t* st)
 {
     assert(st != NULL);
 
-    for (size_t i = 0; i < st_output_size / 2; i++)
+    for (size_t i = 0; i < min(st->capacity, st_output_size / 2); i++)
     {
         if (i < st->size)
             printf("\t\t*[%zu] = %d\n", i + 1, st->data[i+1]);
@@ -147,7 +147,7 @@ void print_st_values(st_t* st)
         //printf("%d", st->capacity);
     }
 
-    for (size_t i = (st->capacity - st_output_size / 2); i < st->capacity; i++)
+    for (size_t i = max(st_output_size / 2, st->capacity - st_output_size / 2); i < st->capacity; i++)
     {
         if (i < st->size)
             printf("\t\t*[%zu] = %d\n", i + 1, st->data[i+1]);

@@ -9,7 +9,7 @@ st_return_err st_ctor (st_t* st, size_t capacity)
 
     st->data = (st_data_type*) calloc (capacity + 2, sizeof(st_data_type));
 
-    CTOR_ASSERT_DATA(NULL);
+    CTOR_ASSERT_DATA(st->data);
 
     st->size = 0;
     st->capacity = capacity;
@@ -29,7 +29,7 @@ st_return_err st_push (st_t* st, st_data_type value)
 {
     CHECK_STACK(st);
 
-    assert(st->size != st->capacity);
+    PUSH_ASSERT_SIZE(st);
 
     st->data[st->size + 1] = value;
     st->size++;
@@ -44,7 +44,7 @@ st_return_err st_pop (st_t* st, st_data_type* el)
 {
     CHECK_STACK(st);
 
-    assert(st->size != 0);
+    POP_ASSERT_ELEMENTS(st);
 
     *el = st->data[--(st->size) + 1];
 

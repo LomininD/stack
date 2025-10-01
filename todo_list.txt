@@ -1,6 +1,3 @@
-// TODO: improve pop
-// TODO: fix dump bug if capacity 0 and other ctor errors
-// TODO: improve stack functions (add error messages)
 // TODO: test stack!!!
 // TODO: realloc
 // TODO: switch at st dump
@@ -9,7 +6,7 @@
 // TODO: print_el
 // TODO: check float types
 // TODO: ask about poisoned data
-// TODO: st_history mode
+
 // TODO: file logs by using fprintf (file, stdout)
 // TODO: check verifier for reliability
 // TODO: multiple error output - binary encoder
@@ -20,16 +17,18 @@
 // TODO: add ability to disable protections
 // TODO: intrude in a command structure
 // TODO: improve dump by adding the place from which error occurred (and stack name)
-// TODO: read about long arifmetics
+
 // TODO: read about errno perror
 // TODO: read about stack frame
+
+// TODO: st_history mode
+// TODO: read about long arifmetics
 // TODO: read about data protection (stack)
 // TODO: stack documentation (optionally)
 // TODO: read advanced information about makefile
 // TODO: read about terminal commands
 // TODO: read about unix systems
 // TODO: read kernigan
-// TODO: think about NULL stack
 
 
 // TODO: read how to google, look for source code
@@ -37,12 +36,16 @@
 // TODO: calculator (print debug messages)
 
 // TODO: (done) print canaries
+// TODO: improve pop (done)
+// TODO: improve stack functions (add error messages) (done)
+// TODO: fix dump bug if capacity 0 and other ctor errors (done)
 included stack err messages
 
 QUESTIONS:
 how to include from folders
 why do I need poison values if i have calloc
-think about NULL stack
+
 should stack functions output a detailed error?
 reorganize error messages? ctor_error make ctor bold
+move st_dump to stack_err_messages????
 
