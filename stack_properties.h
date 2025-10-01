@@ -5,12 +5,13 @@
 
 typedef int st_data_type; // you can change stack type here
 
-const int canary_value = 0xcadef;
-const size_t st_output_size = 6;
+const int canary_value = 0xcadef; // cadef - CAnary DEFense
+const size_t st_output_size = 8;
 //const int poisoned_data = 0xbadf00d;
 
 enum st_error
 {
+    st_ok,
     no_data,
     stack_overflow,
     canary_fault
@@ -18,8 +19,10 @@ enum st_error
 
 enum st_return_err
 {
-    any_error = -1,
-    no_error
+    no_error,
+    no_stack,
+    no_memory,
+    verification_error
 };
 
 struct st_t

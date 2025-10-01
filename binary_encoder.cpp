@@ -11,7 +11,9 @@ int main()
 
     printf("%d\n", a);
 
-    a = a | err_code;
+    a = a | err_code; // use mask to pull out an error code and analyze it:
+                                    //   0 - no error
+                                    //   1 - error occurred
 
     printf("%d\n", a);
 
